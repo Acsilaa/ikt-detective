@@ -5,5 +5,5 @@ use App\Controllers\Api;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/csrf', [Api::class, 'csrf']);
+$routes->match(['get', 'options'],'csrf', [Api::class, 'csrf']);
 $routes->post('/subject', [Api::class, 'subject']);

@@ -9,8 +9,10 @@ class Cors implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $origin = $request->getServer('HTTP_ORIGIN');
 
+        $origin = $request->getServer('HTTP_ORIGIN') ?? '';
+
+        // Only allow from this origin
         if ($origin === 'http://localhost:5173') {
             header('Access-Control-Allow-Origin: http://localhost:5173');
             header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
@@ -18,7 +20,10 @@ class Cors implements FilterInterface
             header('Access-Control-Allow-Credentials: true');
         }
 
+        // Handle preflight (OPTIONS)
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            header('Content-Length: 0');
+            header('Content-Type: text/plain');
             http_response_code(200);
             exit;
         }
