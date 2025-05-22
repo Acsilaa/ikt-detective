@@ -1,39 +1,54 @@
-export default function f(target: string, data: object, reject: () => void, accept: (r:object) => void){
-    function _r (){reject()}
-    function _res (d : object){accept(d)}
-    return new Promise((res, _r)=>{
-        let token = "";
-        let hash = "";
-        let base = "http://localhost:8080/"
-        fetch(base + 'csrf', {
-            method: 'GET',
+export default function f(
+    target: string,
+    data: object,
+    reject: (error: any) => void,
+    accept: (r: object) => void
+  ): Promise<object> {
+    const base = "http://localhost:8080/";
+    
+    return new Promise((resolve, rejectPromise) => {
+      // First, get the CSRF token
+      fetch(base + "csrf", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`CSRF request failed: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((csrf) => {
+          const token = csrf.token;
+          const hash = csrf.hash;
+          
+          // Now make the actual POST request with CSRF token
+          return fetch(base + target, {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
+              "X-CSRF-TOKEN": hash, // Standard header name for CSRF token
             },
-            credentials: 'include' // optional: only if you're dealing with cookies
-          })
-            .then(response => response.json())
-            .then(data => {
-                token = data["token"];
-                hash = data["hash"];
-              fetch(base + target, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  [token]: hash,
-                },
-                credentials: 'include' // optional: only if you're dealing with cookies
-              })
-                .then(response => response.json())
-                .then(data => {
-                  return _res(data);
-                })
-                .catch(error => {
-                  return _r();
-                });
-            })
-            .catch(error => {
-              return _r();
-            });
+            credentials: "include",
+            body: JSON.stringify(data),
+          });
+        })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Request failed: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((responseData) => {
+          accept(responseData);
+          resolve(responseData);
+        })
+        .catch((err) => {
+          reject(err);
+          rejectPromise(err);
+        });
     });
-}
+  }
