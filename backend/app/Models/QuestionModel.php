@@ -57,4 +57,8 @@ class QuestionModel extends Model
                     ->orderBy('time', 'ASC')
                     ->findAll();
     }
+
+    public function getQuestionByID($qid){
+        return $this->find($qid) ?? null;
+    }
 }
