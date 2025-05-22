@@ -8,10 +8,22 @@ export type Person = {
 export type SubjectAttributes = {
     job: string,
     actionCount: number,
+    experience?: "intern"|"beginner"|"expert"|"veteran",
+    height?: number,
+    weight?: number,
+    birtdate?: string,
+    haircolor: string,
+    eyecolor?: string,
 }
 export type DetectiveAttributes = {
     job: string,
     actionCount: number,
+    experience?: "intern"|"beginner"|"expert"|"veteran",
+    height?: number,
+    weight?: number,
+    birtdate?: Date,
+    haircolor?: string,
+    eyecolor?: string,
 }
 
 export type fresp = {
