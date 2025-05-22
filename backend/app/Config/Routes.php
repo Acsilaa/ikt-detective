@@ -8,3 +8,4 @@ use App\Controllers\Api;
 $routes->match(['get', 'options'],'csrf', [Api::class, 'csrf']);
 $routes->match(['post', 'options'], 'subjects', [Api::class, 'subjects']);
 $routes->match(['post', 'options'], 'detectives', [Api::class, 'detectives']);
+$routes->match(['post', 'options'], 'subjectpairs', [Api::class, 'subjectpairs']);

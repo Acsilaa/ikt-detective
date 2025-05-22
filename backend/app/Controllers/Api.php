@@ -68,4 +68,39 @@ class Api extends BaseController
             'data' => json_encode($detectives)
         ]);
     }
+
+    public function subjectpairs(){
+        if ($this->request->getMethod() === 'options') {
+            return $this->response->setStatusCode(200);
+        }
+        $sid = $this->request->getVar("id");
+        if(!$sid){
+            return $this->response->setJSON([
+                "success" => false,
+                "data" => json_encode([
+                    "sid" => $sid
+                ]),
+            ]);
+        }
+        $am = new AnswerModel();
+        $qm = new QuestionModel();
+        $dm = new DetectiveModel();
+
+        $answers = $am->getAnswersBySubject($sid);
+        $pairs = [];
+
+        foreach($answers as $a){
+            $q = $qm->getQuestionByID($a->question_id);
+            $pairs[] = [
+                'question' => $q->question,
+                'answer' => $a->answer,
+                'asker' => $dm->find($q->detective_id)->name
+            ];
+        }
+
+        return $this->response->setJSON([
+            "success" => true,
+            "data" => json_encode($pairs),
+        ]);
+    }
 }
