@@ -45,6 +45,7 @@ export default function f(
           return res.json();
         })
         .then((responseData) => {
+          console.log(responseData.data)
           accept({success: responseData.success, data: JSON.parse(responseData.data)});
           resolve({success: responseData.success, data: JSON.parse(responseData.data)});
         })

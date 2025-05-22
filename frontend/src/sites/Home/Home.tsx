@@ -26,6 +26,7 @@ export const Home = () => {
               job: d["job"], 
               actionCount: d["answers"]             
             },
+            id: d["id"],
           })
         })
         setPeople(ps);
@@ -48,6 +49,7 @@ export const Home = () => {
               job: d["job"], 
               actionCount: d["questions"]             
             },
+            id: d["id"],
           })
         })
         setDetectives(ps);

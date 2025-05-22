@@ -1,7 +1,8 @@
 export type Person = {
     name: string,
     role: "subject"|"detective",
-    attr: SubjectAttributes|DetectiveAttributes
+    attr: SubjectAttributes|DetectiveAttributes,
+    id: number,
 }
 
 export type SubjectAttributes = {
