@@ -19,8 +19,8 @@ export function Subject() {
     }, [])
     return (
         <>
-            <a href="/">Back to Home</a>
-            <h1>Questions && Answers</h1>
+            <a href="/" className='underline'>Back to Home</a>
+            <h1 className='text-left font-semibold text-4xl sm:text-5xl mb-9 mt-2'>Questions && Answers</h1>
             <div>
                 {pairs.map((p, k) => <QARow question={p.question} answer={p.answer} asker={p.asker} key={k}></QARow>)}
             </div>
