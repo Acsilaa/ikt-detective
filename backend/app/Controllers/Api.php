@@ -103,4 +103,45 @@ class Api extends BaseController
             "data" => json_encode($pairs),
         ]);
     }
+
+
+    public function subject(){
+        if ($this->request->getMethod() === 'options') {
+            return $this->response->setStatusCode(200);
+        }
+        $sid = $this->request->getVar("id");
+        if(!$sid){
+            return $this->response->setJSON([
+                "success" => false,
+                "data" => json_encode([
+                    "sid" => $sid
+                ]),
+            ]);
+        }
+
+        return $this->response->setJSON([
+            "success" => true,
+            "data" => json_encode([(new SubjectModel())->find($sid)]),
+        ]);
+    }
+
+    public function detective(){
+        if ($this->request->getMethod() === 'options') {
+            return $this->response->setStatusCode(200);
+        }
+        $did = $this->request->getVar("id");
+        if(!$did){
+            return $this->response->setJSON([
+                "success" => false,
+                "data" => json_encode([
+                    "did" => $did
+                ]),
+            ]);
+        }
+
+        return $this->response->setJSON([
+            "success" => true,
+            "data" => json_encode([(new DetectiveModel())->find($did)]),
+        ]);
+    }
 }
