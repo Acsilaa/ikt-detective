@@ -11,7 +11,7 @@ export type SubjectAttributes = {
     experience?: "intern"|"beginner"|"expert"|"veteran",
     height?: number,
     weight?: number,
-    birtdate?: string,
+    birthdate?: string,
     haircolor: string,
     eyecolor?: string,
 }
@@ -21,7 +21,7 @@ export type DetectiveAttributes = {
     experience?: "intern"|"beginner"|"expert"|"veteran",
     height?: number,
     weight?: number,
-    birtdate?: Date,
+    birthdate?: Date,
     haircolor?: string,
     eyecolor?: string,
 }

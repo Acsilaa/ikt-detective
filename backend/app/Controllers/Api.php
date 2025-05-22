@@ -144,4 +144,32 @@ class Api extends BaseController
             "data" => json_encode([(new DetectiveModel())->find($did)]),
         ]);
     }
+
+    public function detectiveQuestions(){
+        if ($this->request->getMethod() === 'options') {
+            return $this->response->setStatusCode(200);
+        }
+        $did = $this->request->getVar("id");
+        if(!$did){
+            return $this->response->setJSON([
+                "success" => false,
+                "data" => json_encode([
+                    "did" => $did
+                ]),
+            ]);
+        }
+        $qs = [];
+        $qarr = (new QuestionModel())->getQuestionsByDetective($did);
+
+        foreach($qarr as $q){
+            $qs[] = [
+                "question" => $q->question,
+
+            ];
+        }
+        return $this->response->setJSON([
+            "success" => true,
+            "data" => json_encode($qs),
+        ]);
+    }
 }
