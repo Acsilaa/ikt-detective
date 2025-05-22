@@ -9,6 +9,6 @@ class Api extends BaseController{
         return $this->response->setJSON(["token" => csrf_token(), "hash" => csrf_hash()]);
     }
     public function subject(){
-        
+        return $this->response->setJSON([]);
     }
 }
