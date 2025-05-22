@@ -2,8 +2,20 @@
 @import "tailwindcss";
 *{
     font-family: "Poppins", sans-serif;
+    color: white;
 }
 #root{
     max-width: 1100px;
     margin: auto;
+    padding: 0 5%;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    padding-top: 20px;
+    background-color: #07001f;
 }
