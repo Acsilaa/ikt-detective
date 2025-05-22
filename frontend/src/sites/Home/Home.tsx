@@ -6,6 +6,7 @@ import type { Person, fresp } from '../../Types';
 
 export const Home = () => {
   const [people, setPeople] = useState<Person[] | null>(null);
+  const [detectives, setDetectives] = useState<Person[] | null>(null);
   
   useEffect(() => {
     f(
@@ -22,11 +23,34 @@ export const Home = () => {
             name: d["name"],
             role: "subject",
             attr: {
-              job: d["job"],              
+              job: d["job"], 
+              actionCount: d["answers"]             
             },
           })
         })
         setPeople(ps);
+      }
+    );
+    f(
+      "detectives", 
+      {}, 
+      (error) => {
+        console.log("Error:", error);
+      }, 
+      (response: fresp) => {
+        let data = response.data;
+        let ps: Person[] = [];
+        data.forEach(d => {
+          ps.push({
+            name: d["name"],
+            role: "detective",
+            attr: {
+              job: d["job"], 
+              actionCount: d["questions"]             
+            },
+          })
+        })
+        setDetectives(ps);
       }
     );
   }, []);
@@ -40,6 +64,10 @@ export const Home = () => {
       <h2 className='text-2xl mt-12 text-left'>Subjects</h2>
       <div className='grid place-items-center w-[100%] md:flex md:flex-wrap gap-[10px] pt-3 pb-3 items-stretch'>
         {people?.map((p,k) => <PersonCard person={p} key={k}></PersonCard>)}
+      </div>
+      <h2 className='text-2xl mt-12 text-left'>Detectives</h2>
+      <div className='grid place-items-center w-[100%] md:flex md:flex-wrap gap-[10px] pt-3 pb-3 items-stretch'>
+        {detectives?.map((p,k) => <PersonCard person={p} key={k}></PersonCard>)}
       </div>
     </>
   );

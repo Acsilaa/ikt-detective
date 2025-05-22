@@ -6,9 +6,11 @@ export type Person = {
 
 export type SubjectAttributes = {
     job: string,
+    actionCount: number,
 }
 export type DetectiveAttributes = {
     job: string,
+    actionCount: number,
 }
 
 export type fresp = {
