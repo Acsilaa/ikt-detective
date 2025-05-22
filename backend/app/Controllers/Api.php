@@ -1,7 +1,9 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\AnswerModel;
 use App\Models\DetectiveModel;
+use App\Models\QuestionModel;
 use App\Models\SubjectModel;
 
 class Api extends BaseController
@@ -33,7 +35,13 @@ class Api extends BaseController
 
         $sm = new SubjectModel();
         $ss = $sm->findAll();
-        $subjects = $ss;
+        $subjects = [];
+        $am = new AnswerModel();
+        foreach($ss as $s){
+            $c = count($am->getAnswersBySubject($s->id));
+            $s->answers = $c;
+            $subjects[] = $s;
+        }
         
         return $this->response->setJSON([
             'success' => true,
@@ -48,8 +56,13 @@ class Api extends BaseController
 
         $dm = new DetectiveModel();
         $ds = $dm->findAll();
-        $detectives = $ds;
-        
+        $detectives = [];
+        $am = new QuestionModel();
+        foreach($ds as $d){
+            $c = count($am->getQuestionsByDetective($d->id));
+            $d->questions = $c;
+            $detectives[] = $d;
+        }
         return $this->response->setJSON([
             'success' => true,
             'data' => json_encode($detectives)
