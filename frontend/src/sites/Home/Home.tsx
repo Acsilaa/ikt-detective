@@ -9,7 +9,7 @@ export const Home = () => {
   
   useEffect(() => {
     f(
-      "subject", 
+      "subjects", 
       {}, 
       (error) => {
         console.log("Error:", error);
