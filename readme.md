@@ -1,6 +1,7 @@
 dbdiagram: [LINK](https://dbdiagram.io/d/Detective_subject_assignment-68219c375b2fc4582f29c269)
 
 Használat:
+- egy adatbázis és egy r/w engedéllyel ellátott mariaDB user
 - backend server elindításához szükséges a composer és egy alap codeigniter4 project, amibe pullolni kell a repot
     - `composer create-project codeigniter4/appstarter .`
     - szükséges a .env fájlban a db elérésének beállítása, valamint fontos beállítani a base_url-t http://localhost:8080-ra!
