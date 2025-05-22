@@ -1,8 +1,10 @@
+import type { fresp } from "./Types";
+
 export default function f(
     target: string,
     data: object,
     reject: (error: any) => void,
-    accept: (r: object) => void
+    accept: (r: fresp) => void
   ): Promise<object> {
     const base = "http://localhost:8080/";
     
@@ -43,8 +45,8 @@ export default function f(
           return res.json();
         })
         .then((responseData) => {
-          accept(responseData);
-          resolve(responseData);
+          accept({success: responseData.success, data: JSON.parse(responseData.data)});
+          resolve({success: responseData.success, data: JSON.parse(responseData.data)});
         })
         .catch((err) => {
           reject(err);
