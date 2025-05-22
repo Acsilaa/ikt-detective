@@ -1,6 +1,17 @@
+import { useEffect, useState } from 'react';
 import PersonCard from '../../components/PersonCard/PersonCard';
 import st from './Home.module.css';
+import f from '../../Utils';
+import type {Person} from '../../Types';
+
+
 export const Home = () => {
+    const [people, setPeople] = useState<Person[]|null>(null)
+    useEffect(()=>{
+        f("subjects", {}, ()=>{console.log("error")}, (r)=>{
+
+        })
+    }, [])
     return (
     <>
     <h1 className='text-center font-semibold text-4xl sm:text-5xl mb-5'>Detective assessment</h1>
